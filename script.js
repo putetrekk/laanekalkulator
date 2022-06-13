@@ -64,51 +64,100 @@ function calculate_loan() {
   const initialHomeValue = boligprisSlider.value;
   const homeValueChange = boligEndringSlider.value;
 
-  const incrementYear = (savings, deposit, homeValue, years) => [
+  const incrementYear = (year, savings, deposit, homeValue) => [
+    year + 1,
     savings * depositInterest + deposit,
     deposit * depositAdjustment,
     homeValue * homeValueChange,
-    years + 1,
   ];
 
-  let savings = initialSavings;
-  let deposit = initialDeposit;
-  let homeValue = initialHomeValue;
-  let years = 0;
+  let year = 0;
 
-  while (years < 1000) {
-    if (savings >= homeValue * 0.15) break;
+  const hist = [[year, initialSavings, initialDeposit, initialHomeValue]];
 
-    [savings, deposit, homeValue, years] = incrementYear(
-      savings,
-      deposit,
-      homeValue,
-      years
-    );
+  while (year < 100) {
+    hist.push(incrementYear(...hist[year]));
+    year += 1;
   }
 
-  setOutputText(savings, deposit, homeValue, years);
+  generateTable(hist);
+  //setOutputText(savings, deposit, homeValue, years);
 
-  console.log(savings);
-  console.log(deposit);
-  console.log(homeValue);
-  console.log(years);
+  console.log(hist);
+}
+
+function generateTable(hist) {
+  const table = document.getElementById("history-table");
+  table.innerHTML = "";
+  const header = table.createTHead();
+  const headerRow = header.insertRow();
+  [
+    "År",
+    "Sparte Midler",
+    "Innskudd",
+    "Boligverdi",
+    "Egenandel",
+    "Minimum Lønn (20% av lånesum)",
+  ].map((x) => {
+    cell = headerRow.insertCell();
+    cell.innerHTML = x;
+  });
+
+  hist.map((x) => {
+    table.appendChild(generateTableRow(...x));
+  });
+}
+
+function generateTableRow(year, savings, deposit, homeValue) {
+  const row = document.createElement("tr");
+
+  const yearCell = document.createElement("td");
+  yearCell.innerHTML = new Date().getFullYear() + year;
+  row.appendChild(yearCell);
+
+  const savingsCell = document.createElement("td");
+  savingsCell.innerHTML = separateThousands(Math.round(savings));
+  row.appendChild(savingsCell);
+
+  const depositCell = document.createElement("td");
+  depositCell.innerHTML = separateThousands(Math.round(deposit));
+  row.appendChild(depositCell);
+
+  const homeValueCell = document.createElement("td");
+  homeValueCell.innerHTML = separateThousands(Math.round(homeValue));
+  row.appendChild(homeValueCell);
+
+  const ownShare = roundToDecimals((savings / homeValue) * 100, 1);
+  const ownShareCell = document.createElement("td");
+  ownShareCell.innerHTML = `${ownShare}%`;
+  row.appendChild(ownShareCell);
+
+  const minimumPay = separateThousands(Math.round((homeValue - savings) / 5));
+  const minimumPayCell = document.createElement("td");
+  minimumPayCell.innerHTML = minimumPay;
+  row.appendChild(minimumPayCell);
+
+  return row;
 }
 
 function setOutputText(savings, deposit, homeValue, years) {
-    const currentYear = (new Date()).getFullYear();
-    const goalYear = currentYear + years;
+  const currentYear = new Date().getFullYear();
+  const goalYear = currentYear + years;
 
-    const loanAmount = homeValue - savings;
-    const minimumPay = Math.round(loanAmount / 5);
+  const loanAmount = homeValue - savings;
+  const minimumPay = Math.round(loanAmount / 5);
 
-    egenandelText = document.getElementById("egenandel-krav-text");
-    boligverdiText = document.getElementById("boligverdi-text");
-    loennText = document.getElementById("loenn-text");
+  egenandelText = document.getElementById("egenandel-krav-text");
+  boligverdiText = document.getElementById("boligverdi-text");
+  loennText = document.getElementById("loenn-text");
 
-    egenandelText.innerHTML = `Du når 15% (krav om egenandel) om ${years} år. (${goalYear})`
-    boligverdiText.innerHTML = `Da er boligen verdt ${separateThousands(Math.round(homeValue))}.`
-    loennText.innerHTML = `For å ikke låne mer enn fem ganger inntekten må du ha en lønn på ${separateThousands(minimumPay)}.`
+  egenandelText.innerHTML = `Du når 15% (krav om egenandel) om ${years} år. (${goalYear})`;
+  boligverdiText.innerHTML = `Da er boligen verdt ${separateThousands(
+    Math.round(homeValue)
+  )}.`;
+  loennText.innerHTML = `For å ikke låne mer enn fem ganger inntekten må du ha en lønn på ${separateThousands(
+    minimumPay
+  )}.`;
 }
 
 function separateThousands(x) {
