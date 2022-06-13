@@ -1,5 +1,5 @@
 .slidecontainer {
-  width: 80%; /* Width of the outside container */
+  width: 100%; /* Width of the outside container */
 }
 
 .slider {
@@ -39,6 +39,6 @@
 }
 
 td {
-  padding-right: 2em;
+  padding-right: 1em;
   text-align: right;
 }

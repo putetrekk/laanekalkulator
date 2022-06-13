@@ -113,7 +113,7 @@ function generateTable(hist) {
     "Omkostninger",
     "Total Pris",
     "Egenandel",
-    "Minimum Lønn (20% av lånesum)",
+    "Lønn (Lånesum/5)",
   ].map((x) => {
     cell = headerRow.insertCell();
     cell.innerHTML = x;
