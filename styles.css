@@ -37,3 +37,8 @@
 .row {
     width: 100%;
 }
+
+td {
+  padding-right: 2em;
+  text-align: right;
+}
