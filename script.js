@@ -54,14 +54,28 @@ boligEndringSlider.addEventListener("input", () => {
   )}%)`;
 });
 
+const omkostningerAndelSlider = document.getElementById(
+  "omkostninger-andel-slider"
+);
+const omkostningerAndelDisplay = document.getElementById(
+  "omkostninger-andel-display"
+);
+omkostningerAndelSlider.addEventListener("input", () => {
+  omkostninger = omkostningerAndelSlider.value;
+  omkostningerAndelDisplay.innerHTML = `${omkostninger} (${roundToDecimals(
+    omkostninger * 100,
+    1
+  )}%)`;
+});
+
 console.log("script initialisation complete");
 
 function calculate_loan() {
-  const initialSavings = startkapitalSlider.value;
+  const initialSavings = parseInt(startkapitalSlider.value);
   const initialDeposit = innskuddSlider.value * 12;
   const depositAdjustment = innskuddEndringSlider.value;
   const depositInterest = innskuddRenteSlider.value;
-  const initialHomeValue = boligprisSlider.value;
+  const initialHomeValue = parseInt(boligprisSlider.value);
   const homeValueChange = boligEndringSlider.value;
 
   const incrementYear = (year, savings, deposit, homeValue) => [
@@ -75,6 +89,8 @@ function calculate_loan() {
 
   const hist = [[year, initialSavings, initialDeposit, initialHomeValue]];
 
+  console.log(hist);
+
   while (year < 100) {
     hist.push(incrementYear(...hist[year]));
     year += 1;
@@ -82,8 +98,6 @@ function calculate_loan() {
 
   generateTable(hist);
   //setOutputText(savings, deposit, homeValue, years);
-
-  console.log(hist);
 }
 
 function generateTable(hist) {
@@ -96,6 +110,8 @@ function generateTable(hist) {
     "Sparte Midler",
     "Innskudd",
     "Boligverdi",
+    "Omkostninger",
+    "Total Pris",
     "Egenandel",
     "Minimum Lønn (20% av lånesum)",
   ].map((x) => {
@@ -127,12 +143,23 @@ function generateTableRow(year, savings, deposit, homeValue) {
   homeValueCell.innerHTML = separateThousands(Math.round(homeValue));
   row.appendChild(homeValueCell);
 
-  const ownShare = roundToDecimals((savings / homeValue) * 100, 1);
+  const costsShare = omkostningerAndelSlider.value;
+  const costs = homeValue * costsShare;
+  const costsCell = document.createElement("td");
+  costsCell.innerHTML = separateThousands(Math.round(costs));
+  row.appendChild(costsCell);
+
+  const totalPrice = homeValue + costs;
+  const totalPriceCell = document.createElement("td");
+  totalPriceCell.innerHTML = separateThousands(Math.round(totalPrice));
+  row.appendChild(totalPriceCell);
+
+  const ownShare = roundToDecimals(((savings - costs) / totalPrice) * 100, 1);
   const ownShareCell = document.createElement("td");
   ownShareCell.innerHTML = `${ownShare}%`;
   row.appendChild(ownShareCell);
 
-  const minimumPay = separateThousands(Math.round((homeValue - savings) / 5));
+  const minimumPay = separateThousands(Math.round((totalPrice - savings) / 5));
   const minimumPayCell = document.createElement("td");
   minimumPayCell.innerHTML = minimumPay;
   row.appendChild(minimumPayCell);

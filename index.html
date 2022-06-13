@@ -101,9 +101,25 @@
       </div>
     </div>
 
+    <h2>Omkostninger, andel (dokumentavgift)</h2>
+    <div class="row">
+      <p id="omkostninger-andel-display">0.025 (2.5%)</p>
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="0.0"
+          max="0.2"
+          value="0.025"
+          step="0.001"
+          class="slider"
+          id="omkostninger-andel-slider"
+        />
+      </div>
+    </div>
+
     <button id="calculate-button">Hva er min dom?</button>
 
-    <h2 id="egenandel-krav-text">Du når 15% (krav om egenandel)...</h2>
+    <h2 id="egenandel-krav-text">Du når 15% + omkostninger (krav om egenandel)...</h2>
     <h2 id="boligverdi-text">Da er boligen verdt...</h2>
     <h2 id="loenn-text">For å ikke låne mer enn fem ganger inntekten må du ha en lønn på...</h2>
 
