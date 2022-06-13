@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Lånekalkulator Pluss</h1>
+    <h2>Startkapital</h2>
+    <div class="row">
+      <p id="startkapital-display">0</p>
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="0"
+          max="5000000"
+          value="0"
+          step="25000"
+          class="slider"
+          id="startkapital-slider"
+        />
+      </div>
+    </div>
+
+    <h2>Månedlig inskudd</h2>
+    <div class="row">
+      <p id="innskudd-display">0</p>
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="0"
+          max="100000"
+          value="0"
+          step="1000"
+          class="slider"
+          id="innskudd-slider"
+        />
+      </div>
+    </div>
+    
+    <h2>Årlig endring av månedlig innskudd</h2>
+    <div class="row">
+      <p id="innskudd-endring-display">1.02 (2%)</p>
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="0.5"
+          max="2"
+          value="1.02"
+          step="0.001"
+          class="slider"
+          id="innskudd-endring-slider"
+        />
+      </div>
+    </div>
+
+    <h2>Årlig endring på oppsparte midler (rente/avkastning)</h2>
+    <div class="row">
+      <p id="innskudd-rente-display">1.02 (2%)</p>
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="0.95"
+          max="1.1"
+          value="1.02"
+          step="0.001"
+          class="slider"
+          id="innskudd-rente-slider"
+        />
+      </div>
+    </div>
+
+    <h2>Dagens pris på ønsket bolig</h2>
+    <div class="row">
+      <p id="boligpris-display">0</p>
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="0"
+          max="20000000"
+          value="0"
+          step="25000"
+          class="slider"
+          id="boligpris-slider"
+        />
+      </div>
+    </div>
+
+    <h2>Årlig endring på boligpris</h2>
+    <div class="row">
+      <p id="bolig-endring-display">1.06 (6%)</p>
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="0.8"
+          max="1.2"
+          value="1.06"
+          step="0.001"
+          class="slider"
+          id="bolig-endring-slider"
+        />
+      </div>
+    </div>
+
+    <button id="calculate-button">Hva er min dom?</button>
+
+    <h2 id="egenandel-krav-text">Du når 15% (krav om egenandel)...</h2>
+    <h2 id="boligverdi-text">Da er boligen verdt...</h2>
+    <h2 id="loenn-text">For å ikke låne mer enn fem ganger inntekten må du ha en lønn på...</h2>
+
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
