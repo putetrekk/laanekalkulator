@@ -7,7 +7,7 @@
     <h1>Lånekalkulator Pluss</h1>
     <h2>Startkapital</h2>
     <div class="row">
-      <p id="startkapital-display">0</p>
+      <p id="startkapital-display" class="slider-display">0</p>
       <div class="slidecontainer">
         <input
           type="range"
@@ -23,7 +23,7 @@
 
     <h2>Månedlig inskudd</h2>
     <div class="row">
-      <p id="innskudd-display">0</p>
+      <p id="innskudd-display" class="slider-display">0</p>
       <div class="slidecontainer">
         <input
           type="range"
@@ -39,12 +39,12 @@
     
     <h2>Årlig endring av månedlig innskudd</h2>
     <div class="row">
-      <p id="innskudd-endring-display">1.02 (2%)</p>
+      <p id="innskudd-endring-display" class="slider-display">1.02 (2%)</p>
       <div class="slidecontainer">
         <input
           type="range"
-          min="0.5"
-          max="2"
+          min="0.95"
+          max="1.1"
           value="1.02"
           step="0.001"
           class="slider"
@@ -55,7 +55,7 @@
 
     <h2>Årlig endring på oppsparte midler (rente/avkastning)</h2>
     <div class="row">
-      <p id="innskudd-rente-display">1.02 (2%)</p>
+      <p id="innskudd-rente-display" class="slider-display">1.02 (2%)</p>
       <div class="slidecontainer">
         <input
           type="range"
@@ -71,7 +71,7 @@
 
     <h2>Dagens pris på ønsket bolig</h2>
     <div class="row">
-      <p id="boligpris-display">0</p>
+      <p id="boligpris-display" class="slider-display">0</p>
       <div class="slidecontainer">
         <input
           type="range"
@@ -87,7 +87,7 @@
 
     <h2>Årlig endring på boligpris</h2>
     <div class="row">
-      <p id="bolig-endring-display">1.06 (6%)</p>
+      <p id="bolig-endring-display" class="slider-display">1.06 (6%)</p>
       <div class="slidecontainer">
         <input
           type="range"
@@ -103,7 +103,7 @@
 
     <h2>Omkostninger, andel (dokumentavgift)</h2>
     <div class="row">
-      <p id="omkostninger-andel-display">0.025 (2.5%)</p>
+      <p id="omkostninger-andel-display" class="slider-display">0.025 (2.5%)</p>
       <div class="slidecontainer">
         <input
           type="range"
@@ -116,8 +116,6 @@
         />
       </div>
     </div>
-
-    <button id="calculate-button">Hva er min dom?</button>
 
     <h3 id="egenandel-krav-text">Du har spart omkostninger + 15% av boligpris(krav om egenandel)...</h2>
     <h3 id="boligverdi-text">Da er boligen verdt...</h2>

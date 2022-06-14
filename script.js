@@ -1,6 +1,9 @@
-document
-  .getElementById("calculate-button")
-  .addEventListener("click", calculate_loan);
+sliders = document.getElementsByClassName("slider");
+
+console.log(sliders);
+Array.prototype.forEach.call(sliders, (element) =>
+  element.addEventListener("change", calculate_loan)
+);
 
 const startkapitalSlider = document.getElementById("startkapital-slider");
 const startkapitalDisplay = document.getElementById("startkapital-display");
@@ -113,7 +116,7 @@ function generateTable(hist) {
     "Omkostninger",
     "Total Pris",
     "Egenandel",
-    "Lønn (Lånesum/5)",
+    "Lønn (<sup>Lånesum</sup>&frasl;<sub>5</sub>)",
   ].map((x) => {
     cell = headerRow.insertCell();
     cell.innerHTML = x;
