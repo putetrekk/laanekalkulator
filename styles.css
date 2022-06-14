@@ -38,6 +38,10 @@
     width: 100%;
 }
 
+.slider-display {
+  margin-bottom: 0;
+}
+
 td {
   padding-right: 1em;
   text-align: right;
