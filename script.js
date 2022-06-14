@@ -101,7 +101,15 @@ function calculate_loan() {
 
   makeChart(hist);
   generateTable(hist);
-  //setOutputText(savings, deposit, homeValue, years);
+  const whenMetOwnShare = hist.find(
+    (item) =>
+      item[1] - item[3] * omkostningerAndelSlider.value >= item[3] * 0.15
+  );
+  if (whenMetOwnShare) {
+    setOutputText(...whenMetOwnShare);
+  } else {
+    setDefaultOutputText();
+  }
 }
 
 function makeChart(history) {
@@ -246,25 +254,37 @@ function generateTableRow(year, savings, deposit, homeValue) {
   return row;
 }
 
-function setOutputText(savings, deposit, homeValue, years) {
+function setOutputText(years, savings, deposit, homeValue) {
   const currentYear = new Date().getFullYear();
   const goalYear = currentYear + years;
 
-  const loanAmount = homeValue - savings;
+  const costsShare = omkostningerAndelSlider.value;
+  const costs = homeValue * costsShare;
+  const loanAmount = homeValue - savings - costs;
   const minimumPay = Math.round(loanAmount / 5);
 
   egenandelText = document.getElementById("egenandel-krav-text");
   boligverdiText = document.getElementById("boligverdi-text");
   loennText = document.getElementById("loenn-text");
 
-  egenandelText.innerHTML = `Du når 15% (krav om egenandel) om ${years} år. (${goalYear})`;
+  egenandelText.innerHTML = `Du har spart omkostninger + 15% av boligpris(krav om egenandel) om ${years} år. (${goalYear})`;
   boligverdiText.innerHTML = `Da er boligen verdt ${separateThousands(
     Math.round(homeValue)
   )}.`;
-  loennText.innerHTML = `For å ikke låne mer enn fem ganger inntekten må du ha en lønn på ${separateThousands(
+  loennText.innerHTML = `For å ikke låne mer enn fem ganger inntekten må du da ha en lønn på ${separateThousands(
     minimumPay
   )}.`;
 }
+
+function setDefaultOutputText(){
+  egenandelText = document.getElementById("egenandel-krav-text");
+  boligverdiText = document.getElementById("boligverdi-text");
+  loennText = document.getElementById("loenn-text");
+
+  egenandelText.innerHTML = `Du har ikke spart omkostninger + 15% av boligpris(krav om egenandel) innen 100 år`;
+  boligverdiText.innerHTML = `Da er boligen verdt... mye`;
+  loennText.innerHTML = `For å ikke låne mer enn fem ganger inntekten må du da ha en lønn på... mye.`;
+};
 
 function separateThousands(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
