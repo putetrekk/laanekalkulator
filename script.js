@@ -267,11 +267,11 @@ function setOutputText(years, savings, deposit, homeValue) {
   boligverdiText = document.getElementById("boligverdi-text");
   loennText = document.getElementById("loenn-text");
 
-  egenandelText.innerHTML = `Du har spart omkostninger + 15% av boligpris(krav om egenandel) om ${years} år. (${goalYear})`;
+  egenandelText.innerHTML = `Omkostninger + 15% av boligpris (krav om egenandel) spart om ${years} år (${goalYear}).`;
   boligverdiText.innerHTML = `Da er boligen verdt ${separateThousands(
     Math.round(homeValue)
   )}.`;
-  loennText.innerHTML = `For å ikke låne mer enn fem ganger inntekten må du da ha en lønn på ${separateThousands(
+  loennText.innerHTML = `Minste lønn for å ikke låne mer enn fem ganger inntekten er da ${separateThousands(
     minimumPay
   )}.`;
 }
@@ -281,9 +281,9 @@ function setDefaultOutputText(){
   boligverdiText = document.getElementById("boligverdi-text");
   loennText = document.getElementById("loenn-text");
 
-  egenandelText.innerHTML = `Du har ikke spart omkostninger + 15% av boligpris(krav om egenandel) innen 100 år`;
+  egenandelText.innerHTML = `Omkostninger + 15% av boligpris (krav om egenandel) ikke spart innen 100 år`;
   boligverdiText.innerHTML = `Da er boligen verdt... mye`;
-  loennText.innerHTML = `For å ikke låne mer enn fem ganger inntekten må du da ha en lønn på... mye.`;
+  loennText.innerHTML = `Minste lønn for å ikke låne mer enn fem ganger inntekten er da... mye.`;
 };
 
 function separateThousands(x) {
