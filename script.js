@@ -99,8 +99,84 @@ function calculate_loan() {
     year += 1;
   }
 
+  makeChart(hist);
   generateTable(hist);
   //setOutputText(savings, deposit, homeValue, years);
+}
+
+function makeChart(history) {
+  const hist = history.slice(0, 21);
+  Highcharts.chart("container", {
+    title: {
+      text: "Sparing vs Boligpris",
+    },
+
+    yAxis: {
+      title: {
+        text: "Norske Kroner",
+      },
+    },
+
+    xAxis: {
+      accessibility: {
+        rangeDescription: "Range: 2010 to 2017",
+      },
+    },
+
+    legend: {
+      layout: "vertical",
+      align: "right",
+      verticalAlign: "middle",
+    },
+
+    plotOptions: {
+      series: {
+        label: {
+          connectorAllowed: false,
+        },
+        pointStart: hist[0][0] + new Date().getFullYear(),
+      },
+    },
+
+    series: [
+      {
+        name: "Boligpris",
+        data: hist.map((item) => item[3]),
+      },
+      {
+        name: "Krav egenandel",
+        data: hist.map((item) => {
+          const price = item[3];
+          const costs = price * omkostningerAndelSlider.value;
+          return price * 0.15 + costs;
+        }),
+      },
+      {
+        name: "Oppspart",
+        data: hist.map((item) => item[1]),
+      },
+    ],
+    chart: {
+      height: "50%",
+    },
+
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 500,
+          },
+          chartOptions: {
+            legend: {
+              layout: "horizontal",
+              align: "center",
+              verticalAlign: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  });
 }
 
 function generateTable(hist) {
