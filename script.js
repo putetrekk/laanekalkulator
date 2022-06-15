@@ -214,42 +214,34 @@ function generateTable(hist) {
 function generateTableRow(year, savings, deposit, homeValue) {
   const row = document.createElement("tr");
 
-  const yearCell = document.createElement("td");
+  const yearCell = row.insertCell(-1);
   yearCell.innerHTML = new Date().getFullYear() + year;
-  row.appendChild(yearCell);
 
-  const savingsCell = document.createElement("td");
+  const savingsCell = row.insertCell(-1);
   savingsCell.innerHTML = separateThousands(Math.round(savings));
-  row.appendChild(savingsCell);
 
-  const depositCell = document.createElement("td");
+  const depositCell = row.insertCell(-1);
   depositCell.innerHTML = separateThousands(Math.round(deposit));
-  row.appendChild(depositCell);
 
-  const homeValueCell = document.createElement("td");
+  const homeValueCell = row.insertCell(-1);
   homeValueCell.innerHTML = separateThousands(Math.round(homeValue));
-  row.appendChild(homeValueCell);
 
   const costsShare = omkostningerAndelSlider.value;
   const costs = homeValue * costsShare;
-  const costsCell = document.createElement("td");
+  const costsCell = row.insertCell(-1);
   costsCell.innerHTML = separateThousands(Math.round(costs));
-  row.appendChild(costsCell);
 
   const totalPrice = homeValue + costs;
-  const totalPriceCell = document.createElement("td");
+  const totalPriceCell = row.insertCell(-1);
   totalPriceCell.innerHTML = separateThousands(Math.round(totalPrice));
-  row.appendChild(totalPriceCell);
 
   const ownShare = roundToDecimals(((savings - costs) / totalPrice) * 100, 1);
-  const ownShareCell = document.createElement("td");
+  const ownShareCell = row.insertCell(-1);
   ownShareCell.innerHTML = `${ownShare}%`;
-  row.appendChild(ownShareCell);
 
   const minimumPay = separateThousands(Math.round((totalPrice - savings) / 5));
-  const minimumPayCell = document.createElement("td");
+  const minimumPayCell = row.insertCell(-1);
   minimumPayCell.innerHTML = minimumPay;
-  row.appendChild(minimumPayCell);
 
   return row;
 }
