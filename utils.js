@@ -82,3 +82,65 @@ export function roundToDecimals(number, decimals) {
   const fac = Math.pow(10, decimals);
   return Math.round(number * fac) / fac;
 }
+
+export function createSlider(
+  id,
+  label,
+  min,
+  max,
+  value,
+  step,
+  isPercent,
+  isChangeRate
+) {
+  const row = document.createElement("div");
+  row.classList.add("row");
+
+  const sliderHeader = document.createElement("h2");
+  sliderHeader.innerHTML = label;
+  row.appendChild(sliderHeader);
+
+  const valueDisplay = document.createElement("p");
+  valueDisplay.id = `${id}-display`;
+  row.appendChild(valueDisplay);
+
+  const sliderContainer = document.createElement("div");
+  sliderContainer.classList.add("slidecontainer");
+  row.appendChild(sliderContainer);
+
+  const sliderInput = document.createElement("input");
+  sliderInput.type = "range";
+  sliderInput.classList.add("slider");
+  sliderInput.min = min;
+  sliderInput.max = max;
+  sliderInput.value = value;
+  sliderInput.step = step;
+  sliderInput.id = `${id}-slider`;
+
+  sliderInput.addEventListener("input", () =>
+    displayValue(sliderInput, valueDisplay, isPercent, isChangeRate)
+  );
+  displayValue(sliderInput, valueDisplay, isPercent, isChangeRate);
+
+  sliderContainer.appendChild(sliderInput);
+
+  document.getElementById("sliders").appendChild(row);
+}
+
+function displayValue(slider, display, isPercent, isChangeRate) {
+  if (!isPercent) return displayMoney(slider, display);
+  if (isChangeRate) return displayChangePercent(slider, display);
+  return displayPercent(slider, display);
+}
+
+function displayMoney(slider, display) {
+  display.innerHTML = formatMoney(slider.value);
+}
+
+function displayChangePercent(slider, display) {
+  display.innerHTML = formatPercent(slider.value);
+}
+
+function displayPercent(slider, display) {
+  display.innerHTML = formatPercent(slider.value);
+}

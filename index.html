@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Laanekalkulator</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <h1>Lånekalkulator Pluss</h1>
+
+<head>
+  <title>Laanekalkulator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <h1>Lånekalkulator Pluss</h1>
+  <div id="sliders">
     <h2>Startkapital</h2>
     <div class="row">
       <p id="startkapital-display" class="slider-display">0</p>
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="-1000000"
-          max="5000000"
-          value="0"
-          step="25000"
-          class="slider"
-          id="startkapital-slider"
-        />
+        <input type="range" min="-1000000" max="5000000" value="0" step="25000" class="slider"
+          id="startkapital-slider" />
       </div>
     </div>
 
@@ -26,31 +22,16 @@
     <div class="row">
       <p id="innskudd-display" class="slider-display">0</p>
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="0"
-          max="50000"
-          value="0"
-          step="1000"
-          class="slider"
-          id="innskudd-slider"
-        />
+        <input type="range" min="0" max="50000" value="0" step="1000" class="slider" id="innskudd-slider" />
       </div>
     </div>
-    
+
     <h2>Årlig endring av månedlig innskudd</h2>
     <div class="row">
       <p id="innskudd-endring-display" class="slider-display">1.02 (+2%)</p>
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="0.95"
-          max="1.1"
-          value="1.02"
-          step="0.001"
-          class="slider"
-          id="innskudd-endring-slider"
-        />
+        <input type="range" min="0.95" max="1.1" value="1.02" step="0.001" class="slider"
+          id="innskudd-endring-slider" />
       </div>
     </div>
 
@@ -58,15 +39,7 @@
     <div class="row">
       <p id="innskudd-rente-display" class="slider-display">1.02 (+2%)</p>
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="0.95"
-          max="1.1"
-          value="1.02"
-          step="0.001"
-          class="slider"
-          id="innskudd-rente-slider"
-        />
+        <input type="range" min="0.95" max="1.1" value="1.02" step="0.001" class="slider" id="innskudd-rente-slider" />
       </div>
     </div>
 
@@ -74,15 +47,7 @@
     <div class="row">
       <p id="boligpris-display" class="slider-display">0</p>
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="0"
-          max="20000000"
-          value="0"
-          step="25000"
-          class="slider"
-          id="boligpris-slider"
-        />
+        <input type="range" min="0" max="20000000" value="0" step="25000" class="slider" id="boligpris-slider" />
       </div>
     </div>
 
@@ -90,15 +55,7 @@
     <div class="row">
       <p id="bolig-endring-display" class="slider-display">1.06 (+6%)</p>
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="0.8"
-          max="1.2"
-          value="1.06"
-          step="0.001"
-          class="slider"
-          id="bolig-endring-slider"
-        />
+        <input type="range" min="0.8" max="1.2" value="1.06" step="0.001" class="slider" id="bolig-endring-slider" />
       </div>
     </div>
 
@@ -106,27 +63,22 @@
     <div class="row">
       <p id="omkostninger-andel-display" class="slider-display">0.025 (2.5%)</p>
       <div class="slidecontainer">
-        <input
-          type="range"
-          min="0.0"
-          max="0.2"
-          value="0.025"
-          step="0.001"
-          class="slider"
-          id="omkostninger-andel-slider"
-        />
+        <input type="range" min="0.0" max="0.2" value="0.025" step="0.001" class="slider"
+          id="omkostninger-andel-slider" />
       </div>
     </div>
+  </div>
 
-    <h3 id="egenandel-krav-text">Omkostninger + 15% av boligpris (krav om egenandel) spart om...</h2>
+  <h3 id="egenandel-krav-text">Omkostninger + 15% av boligpris (krav om egenandel) spart om...</h2>
     <h3 id="boligverdi-text">Da er boligen verdt...</h2>
-    <h3 id="loenn-text">Minste lønn for å ikke låne mer enn fem ganger inntekten er da...</h2>
+      <h3 id="loenn-text">Minste lønn for å ikke låne mer enn fem ganger inntekten er da...</h2>
 
-    <div id="container"></div>
-    <table id="history-table"></table>
+        <div id="container"></div>
+        <table id="history-table"></table>
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script type="module" src="script.js"></script>
-  </body>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script type="module" src="script.js"></script>
+</body>
+
 </html>
